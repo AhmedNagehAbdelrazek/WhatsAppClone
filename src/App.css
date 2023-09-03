@@ -1,0 +1,51 @@
+.MuiInputBase-input {
+    scrollbar-width: thin;
+    scrollbar-color: #bfbfbf #ffffff00;
+  }
+  .MuiInputBase-input::-webkit-scrollbar {
+    width: 10px;
+  }
+  .MuiInputBase-input::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .MuiInputBase-input::-webkit-scrollbar-thumb {
+    background: #bfbfbf ;
+  }
+  .MuiInputBase-input::-webkit-scrollbar-thumb:hover {
+    background: #8d8d8d;
+  }
+
+.RemoveScroll{
+    scrollbar-width: none;
+}
+.RemoveScroll::-webkit-scrollbar{
+    display: none;
+}
+.threeDotWhite{
+  fill: rgba(255, 255, 255, 0.8); 
+}
+.threeDotWhite:hover{
+  fill: rgba(255, 255, 255, 1);
+  background-color:rgba(255, 255, 255, 0.2);
+  border-radius: 12px; 
+}
+.threeDotBlack{
+  fill: rgba(0, 0, 0, 0.8); 
+}
+.threeDotBlack:hover{
+  fill: rgba(0, 0, 0, 1);
+  background-color:rgba(0, 0, 0, 0.2);
+  border-radius: 12px; 
+}
+.hideActions{
+  top: 0 !important;
+  animation: name duration timing-function delay iteration-count direction fill-mode;
+  animation: hideActions 1s 1 forwards;
+}
+
+@keyframes hideActions {
+  to{
+    opacity: 0;
+    visibility: hidden;
+  }
+}
