@@ -38,9 +38,7 @@ function Shortcuts({ open, handleClose }) {
                     <Stack direction={"row"} alignItems="center" spacing={2}>
                       {combination.map((val) => {
                         return (
-                          <Button key={val} disabled variant="contained" color="info">
-
-                            
+                          <Button key={val} disabled variant="contained" color="info">                            
                             {val}
                           </Button>
                         );
