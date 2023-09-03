@@ -39,6 +39,7 @@ function Shortcuts({ open, handleClose }) {
                       {combination.map((val) => {
                         return (
                           <Button key={val} disabled variant="contained" color="info">
+                            
                             {val}
                           </Button>
                         );
