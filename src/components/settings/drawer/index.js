@@ -1,7 +1,7 @@
 import { AnimatePresence, m } from "framer-motion";
 import { useState, useEffect } from "react";
 // @mui
-import { alpha, styled } from "@mui/material/styles";
+import { alpha, styled, useTheme } from "@mui/material/styles";
 import {
   Stack,
   Divider,
@@ -23,6 +23,7 @@ import ToggleButton from "./ToggleButton";
 import SettingDirection from "./SettingDirection";
 import SettingFullscreen from "./SettingFullscreen";
 import SettingColorPresets from "./SettingColorPresets";
+import { IOSSwitch } from './../../IOSSwitch';
 
 // ----------------------------------------------------------------------
 
@@ -62,9 +63,11 @@ export default function SettingsDrawer() {
     themeDirection,
     themeColorPresets,
     onResetSetting,
+    onToggleMode
   } = useSettings();
 
   const [open, setOpen] = useState(false);
+  const theme = useTheme();
 
   const notDefault =
     themeMode !== defaultSettings.themeMode ||
@@ -133,19 +136,21 @@ export default function SettingsDrawer() {
               </Stack>
 
               <Divider sx={{ borderStyle: "dashed" }} />
-
+              
               <Scrollbar sx={{ flexGrow: 1}}>
-                <Stack spacing={3} sx={{ p: 3 }}>
+                <Stack spacing={3} sx={{ p: 3 }} divider={<Divider borderStyle={"doted"}/>}>
                   <Stack spacing={1.5}>
                     <Typography variant="subtitle2">Direction</Typography>
                     <SettingDirection />
                   </Stack>
-
+                  <Stack direction={"row"} alignItems={"center"} justifyContent={"space-between"}>
+                  <Typography variant="subtitle2">Switch Mode</Typography>
+                  <IOSSwitch checked={theme.palette.mode === 'dark'} onClick={()=>{onToggleMode()}} />
+                  </Stack>
                   <Stack spacing={1.5}>
                     <Typography variant="subtitle2">Presets</Typography>
                     <SettingColorPresets />
                   </Stack>
-
                   <SettingFullscreen />
                 </Stack>
               </Scrollbar>
