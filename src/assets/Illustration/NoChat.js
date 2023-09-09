@@ -1,7 +1,7 @@
 import { memo } from "react";
 // @mui
 import { useTheme } from "@mui/material/styles";
-import { Box } from "@mui/material";
+import { Box, Link, Stack, Typography } from "@mui/material";
 
 // ----------------------------------------------------------------------
 
@@ -11,6 +11,8 @@ function NoChat({ ...other }) {
   const PRIMARY_MAIN = theme.palette.primary.main;
 
   return (
+    <Stack spacing={3} alignItems={"center"}>
+      
     <Box {...other}>
       <svg
         width="360"
@@ -327,6 +329,9 @@ function NoChat({ ...other }) {
         />
       </svg>
     </Box>
+    <Typography variant="body2">Select a conversation or start a <Link>new one </Link></Typography>
+    </Stack>
+
   );
 }
 

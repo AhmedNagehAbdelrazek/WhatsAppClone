@@ -1,9 +1,9 @@
 import { useState } from "react";
-import FormProvider from "../../hook-form/FormProvider";
+import FormProvider from "../../components/hook-form/FormProvider";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import RHFTextField from "../../hook-form/RHFTextField";
+import RHFTextField from "../../components/hook-form/RHFTextField";
 import { Alert, Button, Stack } from "@mui/material";
 
 export default function ResetPasswordForm() {
@@ -55,6 +55,8 @@ export default function ResetPasswordForm() {
         {!!errors.afterSubmit && (
           <Alert severity="error">{errors.afterSubmit.message}</Alert>
         )}
+
+        {!!errors.email && (<Alert severity="error" >Email: {errors.email.message}</Alert> )}
 
         <RHFTextField name="email" label="Email Address" />
       </Stack>

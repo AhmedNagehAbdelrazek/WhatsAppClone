@@ -34,7 +34,7 @@ export default function SettingMode() {
             <Grid key={mode} item xs={6}>
               <BoxStyle
                 sx={{
-                  bgcolor: mode === 'light' ? 'common.white' : 'grey.800',
+                  bgcolor: mode === 'light' ? 'common.white' : 'grey.800' ,
                   ...(isSelected && {
                     color: 'primary.main',
                     boxShadow: (theme) => theme.customShadows.z20,

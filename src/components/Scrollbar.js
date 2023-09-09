@@ -14,7 +14,7 @@ const RootStyle = styled('div')(() => ({
 }));
 
 const SimpleBarStyle = styled(SimpleBarReact)(({ theme }) => ({
-  // maxHeight: '100%',
+  maxHeight: '100%',
   height:"100%",
   overflow:"auto",
   '& .simplebar-scrollbar': {

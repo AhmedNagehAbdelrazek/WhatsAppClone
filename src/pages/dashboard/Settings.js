@@ -24,10 +24,13 @@ import { SimpleBarStyle } from "../../components/Scrollbar";
 import { NotificationsNone } from "@mui/icons-material";
 import Shortcuts from "../../Sections/Settings/Shortcuts";
 import { useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+import { AvatarStyled } from "../../components/StyledComponents/AvatarStyled";
 
 export default function Settings() {
   const theme = useTheme();
   const [openShortcuts, setOpenShortcuts] = useState(false);
+  const navigate = useNavigate();
 
   const SettingsOptions = [
     {
@@ -100,13 +103,16 @@ export default function Settings() {
               ? "rgba(200,200,200,0.5)"
               : "rgba(10, 10, 10,0.5)"
           }`,
-          backgroundColor:theme.palette.mode === 'light' ? "#f8faff" :theme.palette.background
+          backgroundColor:
+            theme.palette.mode === "light"
+              ? "#f8faff"
+              : theme.palette.background,
         }}
       >
         <Stack spacing={1} sx={{ height: "100%" }}>
           {/* nav */}
           <Stack direction={"row"} spacing={2}>
-            <IconButton>
+            <IconButton onClick={()=> navigate(-1) }>
               <CaretLeft size={30} />
             </IconButton>
             <Typography variant="h3">Settings</Typography>
@@ -119,9 +125,10 @@ export default function Settings() {
             justifyContent={"start"}
             p={2}
           >
-            <Avatar
-              sx={{ width: "75px", height: "75px" }}
+            <AvatarStyled
+              sx={{ width: "75px", height: "75px" ,cursor:'pointer'}}
               src={faker.image.avatar()}
+              // onClick={()=>{<Navigate to={"/profile"} />}}
             />
             <Stack direction={"column"}>
               <Typography variant="article" fontWeight={500}>
@@ -157,14 +164,14 @@ export default function Settings() {
         </Stack>
       </Box>
       {/* right Panel */}
-      {openShortcuts && (
+      {
         <Shortcuts
           open={openShortcuts}
           handleClose={() => {
             setOpenShortcuts(false);
           }}
         />
-      )}
+      }
     </Stack>
   );
 }

@@ -1,9 +1,9 @@
 import { useState } from "react";
-import FormProvider from "../../hook-form/FormProvider";
+
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import RHFTextField from "../../hook-form/RHFTextField";
+
 import { Link as RouterLink } from "react-router-dom";
 import {
   Alert,
@@ -15,6 +15,8 @@ import {
 } from "@mui/material";
 import { Eye, EyeSlash } from "@phosphor-icons/react";
 import NewPassword from './../../pages/Auth/NewPassword';
+import RHFTextField from "../../components/hook-form/RHFTextField";
+import FormProvider from "../../components/hook-form/FormProvider";
 
 export default function NewPasswordForm() {
   const [showNewPassword, setShowNewPassword] = useState(false);

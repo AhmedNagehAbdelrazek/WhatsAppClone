@@ -12,14 +12,17 @@ import {
 const Profile_Menu = [
   {
     title: "Profile",
+    nav:"/profile",
     icon: <User />,
   },
   {
     title: "Settings",
+    nav:"/settings",
     icon: <Gear />,
   },
   {
-    title: "Profile",
+    title: "Log out",
+    nav:"/logout",
     icon: <SignOut />,
   },
 ];
@@ -27,14 +30,17 @@ const Profile_Menu = [
 const Nav_Buttons = [
   {
     index: 0,
+    nav:"/",
     icon: <ChatCircleDots />,
   },
   {
     index: 1,
+    nav:"/group",
     icon: <Users />,
   },
   {
     index: 2,
+    nav:"call",
     icon: <Phone />,
   },
 ];
@@ -217,7 +223,44 @@ const Chat_History = [
     starred:false
   },
 ];
-
+const Call_History = [
+    {
+      id:0,
+      img: faker.image.avatar(),
+      name: faker.name.firstName(),
+      time: faker.date.weekday(),
+      callType:"call",
+      callDestination:"income",
+      missed:false
+    },
+    {
+      id:1,
+      img: faker.image.avatar(),
+      name: faker.name.firstName(),
+      time: faker.date.weekday(),
+      callType:"call",
+      callDestination:"outcome",
+      missed:true
+    },
+    {
+      id:2,
+      img: faker.image.avatar(),
+      name: faker.name.firstName(),
+      time: faker.date.weekday(),
+      callType:"video",
+      callDestination:"outcome",
+      missed:false
+    },
+    {
+      id:3,
+      img: faker.image.avatar(),
+      name: faker.name.firstName(),
+      time: faker.date.weekday(),
+      callType:"video",
+      callDestination:"income",
+      missed:true
+    },
+];
 const Message_options = [
   {
     title: "Reply",
@@ -246,4 +289,5 @@ export {
   ChatList,
   Chat_History,
   Message_options,
+  Call_History,
 };

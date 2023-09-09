@@ -6,6 +6,7 @@ import {
   Avatar,
   Menu,
   MenuItem,
+  Link,
 } from "@mui/material";
 import { Logo } from "../../assets/Images/Logo";
 import { Nav_Buttons, Profile_Menu } from "../../data";
@@ -15,12 +16,18 @@ import { faker } from "@faker-js/faker";
 import { useTheme } from "@mui/material/styles";
 import { IOSSwitch } from "../../components/IOSSwitch";
 import useSettings from "../../hooks/useSettings";
-import { Link, Navigate } from "react-router-dom";
+import { Link as RouterLink, useLocation, useParams } from "react-router-dom";
+import { GetPathValue } from "../../utils/Utilities";
+import { useEffect } from "react";
+import { AvatarStyled } from "../../components/StyledComponents/AvatarStyled";
 
 export function SideBar() {
+  const location = useLocation().pathname;
+  const selectedIcon = GetPathValue(location);
+
   const theme = useTheme();
   const { onToggleMode } = useSettings();
-  const [selected, setSelected] = useState(0);
+  const [selected, setSelected] = useState(selectedIcon);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -30,6 +37,11 @@ export function SideBar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  useEffect(() => {
+    setSelected(selectedIcon);
+  }, [selectedIcon]);
+
   return (
     <Box
       p={2}
@@ -51,7 +63,10 @@ export function SideBar() {
         justifyContent={"space-between"}
       >
         <Stack alignItems={"center"} spacing={4}>
-          <Link to={"/app"} onClick={()=>setSelected(0)}>
+          <Link
+            {...(selected === 0 ? {} : { to: "/app", component: RouterLink })}
+            onClick={() => (selected === 0 ? null : setSelected(0))}
+          >
             <Box
               sx={{
                 backgroundColor: theme.palette.primary.main,
@@ -94,18 +109,19 @@ export function SideBar() {
                   </IconButton>
                 </Box>
               ) : (
-                <IconButton
-                  onClick={() => setSelected(btn.index)}
-                  key={btn.index}
-                  sx={{
-                    color:
-                      theme.palette.mode === "light"
-                        ? "#000"
-                        : theme.palette.text.primary,
-                  }}
-                >
-                  {btn.icon}
-                </IconButton>
+                <Link key={btn.index} component={RouterLink} to={btn.nav}>
+                  <IconButton
+                    onClick={() => setSelected(btn.index)}
+                    sx={{
+                      color:
+                        theme.palette.mode === "light"
+                          ? "#000"
+                          : theme.palette.text.primary,
+                    }}
+                  >
+                    {btn.icon}
+                  </IconButton>
+                </Link>
               )
             )}
             <Divider flexItem orientation="horizontal" />
@@ -124,11 +140,10 @@ export function SideBar() {
                 </IconButton>
               </Box>
             ) : (
-              <Link to={"/settings"}>
+              <Link to={"/settings"} component={RouterLink}>
                 <IconButton
                   onClick={() => {
                     setSelected(3);
-                    NavigateTo("/settings");
                   }}
                   sx={{
                     color:
@@ -149,13 +164,12 @@ export function SideBar() {
             onClick={(e) => {
               onToggleMode();
             }}
-            defaultChecked={theme.palette.mode === "dark"}
+            checked={theme.palette.mode === "dark"}
           />
-          <Avatar
-            id={`option-btn`}
+          
+          <AvatarStyled id={`option-btn`}
             onClick={handleClick}
-            src={faker.image.avatar()}
-          />
+            src={faker.image.avatar()} />
 
           <Menu
             id="basic-menu"
@@ -170,16 +184,18 @@ export function SideBar() {
           >
             <Stack spacing={1}>
               {Profile_Menu.map((title) => (
-                <MenuItem key={title.title} onClick={handleClose}>
-                  <Stack
-                    sx={{ width: 100 }}
-                    direction={"row"}
-                    alignItems={"center"}
-                    justifyContent={"space-between"}
-                  >
-                    {title.title}
-                    {title.icon}
-                  </Stack>
+                <MenuItem onClick={handleClose}>
+                  <Link underline={"none"} color="inherit" to={title.nav} key={title.title} component={RouterLink}>
+                    <Stack
+                      sx={{ width: 100 }}
+                      direction={"row"}
+                      alignItems={"center"}
+                      justifyContent={"space-between"}
+                    >
+                      {title.title}
+                      {title.icon}
+                    </Stack>
+                  </Link>
                 </MenuItem>
               ))}
             </Stack>
@@ -188,8 +204,4 @@ export function SideBar() {
       </Stack>
     </Box>
   );
-}
-
-function NavigateTo(path) {
-  return <Navigate to={path} replace />;
 }

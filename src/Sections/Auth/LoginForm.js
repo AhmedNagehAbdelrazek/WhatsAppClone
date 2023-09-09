@@ -1,9 +1,9 @@
 import { useState } from "react";
-import FormProvider from "../../hook-form/FormProvider";
+import FormProvider from "../../components/hook-form/FormProvider";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import RHFTextField from "../../hook-form/RHFTextField";
+import RHFTextField from "../../components/hook-form/RHFTextField";
 import { Link as RouterLink } from "react-router-dom"; 
 import {
   Alert,
@@ -65,9 +65,9 @@ function LoginForm() {
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
-        {!!errors.afterSubmit && (
-          <Alert severity="error">{errors.afterSubmit.message}</Alert>
-        )}
+        
+        {!!errors.email && (<Alert severity="error" >Email: {errors.email.message}</Alert> )}
+        {!!errors.password && (<Alert severity="error" >Password: {errors.password.message}</Alert> )}
 
         <RHFTextField name="email" label="Email Address" />
         <RHFTextField

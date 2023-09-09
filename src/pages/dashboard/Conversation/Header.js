@@ -17,6 +17,7 @@ import { faker } from "@faker-js/faker";
 import { useTheme } from "@mui/material/styles";
 import { toggleSideBar } from "../../../RTK/Slices/appSlice";
 import { useDispatch } from "react-redux";
+import { AvatarStyled } from "../../../components/StyledComponents/AvatarStyled";
 
 function Header() {
   const theme = useTheme();
@@ -45,7 +46,7 @@ function Header() {
             variant="dot"
             fullcolor="#0f0"
           >
-            <Avatar src={faker.image.avatar()} />
+            <AvatarStyled src={faker.image.avatar()} />
           </StyledBadge>
           <Stack direction={"column"}>
             <Typography

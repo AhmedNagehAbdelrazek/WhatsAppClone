@@ -1,9 +1,9 @@
 import { useState } from "react";
-import FormProvider from "../../hook-form/FormProvider";
+import FormProvider from "../../components/hook-form/FormProvider";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import RHFTextField from "../../hook-form/RHFTextField";
+import RHFTextField from "../../components/hook-form/RHFTextField";
 import {
   Alert,
   Button,
@@ -69,6 +69,11 @@ function RegisterForm() {
         {!!errors.afterSubmit && (
           <Alert severity="error">{errors.afterSubmit.message}</Alert>
         )}
+
+        {!!errors.firstName && (<Alert severity="error" >FirstName: {errors.firstName.message}</Alert> )}
+        {!!errors.lastName && (<Alert severity="error" >LastName: {errors.lastName.message}</Alert> )}
+        {!!errors.email && (<Alert severity="error" >Email: {errors.email.message}</Alert> )}
+        {!!errors.password && (<Alert severity="error" >Password: {errors.password.message}</Alert> )}
         <Stack direction={{xs:"column" , sm:"row"}} spacing={2}>
             <RHFTextField name={"firstName"} label="First Name" />
             <RHFTextField name={"lastName"} label={"Last Name"} />
