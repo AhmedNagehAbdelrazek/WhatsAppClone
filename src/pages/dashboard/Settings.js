@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Box,
   Button,
   Divider,
@@ -20,12 +19,13 @@ import {
   WarningCircle,
 } from "@phosphor-icons/react";
 import { faker } from "@faker-js/faker";
-import { SimpleBarStyle } from "../../components/Scrollbar";
+import { SimpleBarStyle } from "../../components/StyledComponents/Scrollbar";
 import { NotificationsNone } from "@mui/icons-material";
 import Shortcuts from "../../Sections/Settings/Shortcuts";
 import { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AvatarStyled } from "../../components/StyledComponents/AvatarStyled";
+import SelectAConversationSide from "../Extra/SelectAConverstionSide";
 
 export default function Settings() {
   const theme = useTheme();
@@ -92,6 +92,7 @@ export default function Settings() {
         p={3}
         sx={{
           width: "25%",
+          minWidth: "380px",
           maxWidth: "380px",
           height: "100vh",
           boxShadow: `0px 0px 6px ${
@@ -164,6 +165,7 @@ export default function Settings() {
         </Stack>
       </Box>
       {/* right Panel */}
+      <SelectAConversationSide/>
       {
         <Shortcuts
           open={openShortcuts}

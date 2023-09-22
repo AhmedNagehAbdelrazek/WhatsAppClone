@@ -2,8 +2,8 @@ import { Box, Stack } from "@mui/material";
 import React from "react";
 import { useTheme } from "@mui/material/styles";
 import { Chat_History } from "../../../data";
-import { ChatMessages } from "../../../components/ChatMessages";
-import { SimpleBarStyle } from "../../../components/Scrollbar";
+import { ChatMessages } from "../../../components/Chat/ChatMessages";
+import { SimpleBarStyle } from "../../../components/StyledComponents/Scrollbar";
 
 
 function Message() {

@@ -1,29 +1,16 @@
 import {
-  Button,
   Dialog,
   DialogContent,
   DialogTitle,
   Slide,
   Typography,
-  Alert,
   Stack,
   Box,
   Avatar,
-  Chip,
-  Autocomplete,
-  TextField,
   IconButton,
 } from "@mui/material";
 import { forwardRef } from "react";
-import FormProvider from "../../components/hook-form/FormProvider";
-import * as Yup from "yup";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import RHFTextField from "../../components/hook-form/RHFTextField";
 import { faker } from "@faker-js/faker";
-import RHFAutoComplete from "./../../components/hook-form/RHFAutoComplete";
-import { useState } from "react";
-import { useEffect } from "react";
 import { MagnifyingGlass, Phone, VideoCamera, XCircle } from "@phosphor-icons/react";
 import {
   Search,
@@ -31,7 +18,7 @@ import {
   StyledInputBase,
 } from "../../components/StyledComponents/Search";
 import { useTheme } from "@mui/material/styles";
-import { SimpleBarStyle } from "../../components/Scrollbar";
+import { SimpleBarStyle } from "../../components/StyledComponents/Scrollbar";
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });

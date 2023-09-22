@@ -23,9 +23,9 @@ import {
   XCircle,
 } from "@phosphor-icons/react";
 import { faker } from "@faker-js/faker";
-import SimpleBarStyle from "./Scrollbar";
+import SimpleBarStyle from "./../components/StyledComponents/Scrollbar";
 import { useTheme } from "@mui/material/styles";
-import { IOSSwitch } from "./IOSSwitch";
+import { IOSSwitch } from "./StyledComponents/IOSSwitch";
 import { NotificationsNone } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
 import {
@@ -67,6 +67,7 @@ export function Contact() {
     <Box
       sx={{
         width: "20%",
+        minWidth: "320px",
         maxWidth: "320px",
         height: "100vh",
         borderLeft: `2px solid ${

@@ -8,10 +8,7 @@ import {
   Alert,
   Stack,
   Box,
-  Avatar,
   Chip,
-  Autocomplete,
-  TextField,
 } from "@mui/material";
 import { forwardRef } from "react";
 import FormProvider from "../../components/hook-form/FormProvider";
@@ -21,7 +18,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import RHFTextField from "../../components/hook-form/RHFTextField";
 import { faker } from "@faker-js/faker";
 import RHFAutoComplete from "./../../components/hook-form/RHFAutoComplete";
-import { useState } from "react";
 import { useEffect } from "react";
 
 const Transition = forwardRef(function Transition(props, ref) {
@@ -61,7 +57,6 @@ export default function CreateGroup({ open, handleClose }) {
 }
 
 function CreateGroupForm({ handleClose }) {
-  const [value, setValue] = useState([]);
 
   const CreateGroupSchema = Yup.object().shape({
     title: Yup.string().required("title is required"),
@@ -83,17 +78,12 @@ function CreateGroupForm({ handleClose }) {
 
   const {
     reset,
-    watch,
     handleSubmit,
-    unregister,
     setError,
 
     formState: {
       errors,
       isSubmitSuccessful,
-      isSubmitted,
-      isLoading,
-      isSubmitting,
     },
   } = methods;
   useEffect(() => {

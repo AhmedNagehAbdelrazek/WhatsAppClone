@@ -15,7 +15,7 @@ import {
   DownloadSimple,
   Image,
 } from "@phosphor-icons/react";
-import { Message_options } from "../data";
+import { Message_options } from "../../data";
 
 export function TimeLine({showOptions, chatH }) {
   return (

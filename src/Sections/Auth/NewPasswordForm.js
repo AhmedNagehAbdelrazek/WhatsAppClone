@@ -7,27 +7,33 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Link as RouterLink } from "react-router-dom";
 import {
   Alert,
-  Button,
   IconButton,
   InputAdornment,
   Link,
   Stack,
 } from "@mui/material";
 import { Eye, EyeSlash } from "@phosphor-icons/react";
-import NewPassword from './../../pages/Auth/NewPassword';
 import RHFTextField from "../../components/hook-form/RHFTextField";
 import FormProvider from "../../components/hook-form/FormProvider";
+import { useDispatch } from "react-redux";
+import { ResetPasswordUser } from "../../RTK/Slices/authSlice";
+import { useSearchParams } from "react-router-dom";
+import FormBtn from "../../components/FormBtn";
 
 export default function NewPasswordForm() {
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
-  const [confirmPassword, setConfirmPassword] = useState();
+  const dispatch = useDispatch();
+  const [query, setQuery] = useSearchParams();
 
   const NewPasswordSchema = Yup.object().shape({
     newPassword: Yup.string().required("Password is Required").min(8),
     confirmPassword: Yup.string()
-      .required("Confirm Password is Required").oneOf([Yup.ref('newPassword'),null],"The Confirm-Password and New-Password Don't Match"),
+      .required("Confirm Password is Required")
+      .oneOf(
+        [Yup.ref("newPassword"), null],
+        "The Confirm-Password and New-Password Don't Match"
+      ),
   });
 
   const defaultValues = {
@@ -42,21 +48,20 @@ export default function NewPasswordForm() {
 
   const {
     reset,
-    clearErrors,
     handleSubmit,
     setError,
-    formState: {
-      errors,
-      isSubmitSuccessful,
-      isSubmitted,
-      isLoading,
-      isSubmitting,
-    },
+    formState: { errors },
   } = methods;
 
-  const onSubmit = async () => {
+  const onSubmit = async (data) => {
     try {
       //server calling code
+      dispatch(
+        ResetPasswordUser({
+          password: data.newPassword,
+          token: query.get("token"),
+        })
+      );
     } catch (error) {
       console.log(error);
       reset();
@@ -66,27 +71,37 @@ export default function NewPasswordForm() {
       });
     }
   };
-//   function handleConfirmPassword(e){
-//     if(e.target.value !== newPassword){
-//         setError('confirmPassword',{message:"The Confirm Password and New Password Don't Match"});
-//     }
-//   }
+  //   function handleConfirmPassword(e){
+  //     if(e.target.value !== newPassword){
+  //         setError('confirmPassword',{message:"The Confirm Password and New Password Don't Match"});
+  //     }
+  //   }
   console.log(errors.afterSubmit);
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
-        {!!errors.newPassword && (<Alert severity="error" >New Password: {errors.newPassword.message}</Alert> )}
-        {!!errors.confirmPassword && (<Alert severity="error" >Confirm Password: {errors.confirmPassword.message}</Alert> )}
+        {!!errors.newPassword && (
+          <Alert severity="error">
+            New Password: {errors.newPassword.message}
+          </Alert>
+        )}
+        {!!errors.confirmPassword && (
+          <Alert severity="error">
+            Confirm Password: {errors.confirmPassword.message}
+          </Alert>
+        )}
         <RHFTextField
           name="newPassword"
           label="New Password"
           type={showNewPassword ? "text" : "password"}
-        //   onChange={(e)=>{setNewPassword(e.target.value); clearErrors();  console.log(e.target.value);}}
-        //   value={newPassword}
+          //   onChange={(e)=>{setNewPassword(e.target.value); clearErrors();  console.log(e.target.value);}}
+          //   value={newPassword}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
-                <IconButton onClick={() => setShowNewPassword((state) => !state)}>
+                <IconButton
+                  onClick={() => setShowNewPassword((state) => !state)}
+                >
                   {showNewPassword ? <Eye /> : <EyeSlash />}
                 </IconButton>
               </InputAdornment>
@@ -94,16 +109,18 @@ export default function NewPasswordForm() {
           }}
         />
         <RHFTextField
-        //   onBlur={handleConfirmPassword}
+          //   onBlur={handleConfirmPassword}
           name="confirmPassword"
           label="Confirm Password"
           type={showConfirmPassword ? "text" : "password"}
-        //   onChange={(e)=>{clearErrors(); setConfirmPassword(e.target.value)}}
-        //   value={confirmPassword}
+          //   onChange={(e)=>{clearErrors(); setConfirmPassword(e.target.value)}}
+          //   value={confirmPassword}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
-                <IconButton onClick={() => setShowConfirmPassword((state) => !state)}>
+                <IconButton
+                  onClick={() => setShowConfirmPassword((state) => !state)}
+                >
                   {showConfirmPassword ? <Eye /> : <EyeSlash />}
                 </IconButton>
               </InputAdornment>
@@ -111,7 +128,7 @@ export default function NewPasswordForm() {
           }}
         />
       </Stack>
-      
+
       <Stack alignItems={"end"} sx={{ my: 2 }}>
         <Link
           to={"/auth/reset-password"}
@@ -123,26 +140,7 @@ export default function NewPasswordForm() {
           Forget Password?
         </Link>
       </Stack>
-      <Button
-        onClick={() => {}}
-        fullWidth
-        color="inherit"
-        size="large"
-        type="submit"
-        variant="contained"
-        sx={{
-          bgcolor: "text.primary",
-          color: (theme) =>
-            theme.palette.mode === "light" ? "common.white" : "grey.800",
-          "&:hover": {
-            color: (theme) =>
-              theme.palette.mode === "light" ? "common.white" : "grey.800",
-            bgcolor: "text.primary",
-          },
-        }}
-      >
-        Submit
-      </Button>
+      <FormBtn value="Submit"/>
     </FormProvider>
   );
 }

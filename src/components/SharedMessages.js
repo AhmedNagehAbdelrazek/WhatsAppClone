@@ -9,7 +9,7 @@ import {
   Tabs,
   Typography,
 } from "@mui/material";
-import { SimpleBarStyle } from "./Scrollbar";
+import { SimpleBarStyle } from "./../components/StyledComponents/Scrollbar";
 import { ArrowLeft, LinkSimple } from "@phosphor-icons/react";
 import { useDispatch } from "react-redux";
 import { CONTACT, updateSidebarType } from "../RTK/Slices/appSlice";
@@ -32,6 +32,7 @@ function SharedMessages() {
       <Box
         sx={{
           width: "20%",
+          minWidth: "320px",
           maxWidth: "320px",
           height: "100vh",
           borderLeft: `2px solid ${

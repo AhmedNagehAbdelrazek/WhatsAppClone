@@ -9,6 +9,8 @@ import {
   Users,
 } from "phosphor-react";
 
+faker.seed(14);
+
 const Profile_Menu = [
   {
     title: "Profile",
@@ -59,8 +61,8 @@ const ChatList = [
     name: faker.name.firstName(),
     msg: faker.music.songName(),
     time: "9:36",
-    unread: 0,
-    pinned: true,
+    unread: 0,        //
+    pinned: true,     //
     online: true,
   },
   {
@@ -273,9 +275,7 @@ const Message_options = [
   },
   {
     title: "Star message",
-  },
-  {
-    title: "Report",
+    alt: "Remove From Star"
   },
   {
     title: "Delete Message",

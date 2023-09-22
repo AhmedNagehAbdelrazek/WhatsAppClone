@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import SimpleBarReact from 'simplebar-react';
-import "../../node_modules/simplebar/src/simplebar.css";
+import "../../../node_modules/simplebar/src/simplebar.css";
 // @mui
 import { alpha, styled } from '@mui/material/styles';
 import { Box } from '@mui/material';
@@ -16,6 +16,7 @@ const RootStyle = styled('div')(() => ({
 const SimpleBarStyle = styled(SimpleBarReact)(({ theme }) => ({
   maxHeight: '100%',
   height:"100%",
+  // paddingRight:"12px",
   overflow:"auto",
   '& .simplebar-scrollbar': {
     '&:before': {

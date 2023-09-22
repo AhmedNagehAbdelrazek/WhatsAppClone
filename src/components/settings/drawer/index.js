@@ -17,13 +17,13 @@ import cssStyles from "../../../utils/cssStyles";
 import { NAVBAR, defaultSettings } from "../../../config";
 //
 import Iconify from "../../Iconify";
-import Scrollbar from "../../Scrollbar";
+import Scrollbar from "../../StyledComponents/Scrollbar";
 //
 import ToggleButton from "./ToggleButton";
 import SettingDirection from "./SettingDirection";
 import SettingFullscreen from "./SettingFullscreen";
 import SettingColorPresets from "./SettingColorPresets";
-import { IOSSwitch } from './../../IOSSwitch';
+import { IOSSwitch } from './../../StyledComponents/IOSSwitch';
 
 // ----------------------------------------------------------------------
 

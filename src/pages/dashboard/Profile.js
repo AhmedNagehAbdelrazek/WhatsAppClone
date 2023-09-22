@@ -1,7 +1,6 @@
 import {
   Avatar,
   Box,
-  Button,
   Divider,
   IconButton,
   Stack,
@@ -10,28 +9,23 @@ import {
 import React from "react";
 import { useTheme } from "@mui/material/styles";
 import {
-  Article,
   CaretLeft,
-  ClipboardText,
-  Image,
-  Key,
-  Lock,
-  PencilCircle,
-  WarningCircle,
 } from "@phosphor-icons/react";
 import { faker } from "@faker-js/faker";
-import { SimpleBarStyle } from "../../components/Scrollbar";
-import { NotificationsNone } from "@mui/icons-material";
-import Shortcuts from "../../Sections/Settings/Shortcuts";
-import { useState } from "react";
 import ProfileForm from "../../Sections/Settings/ProfileForm";
-import NoChat from "../../assets/Illustration/NoChat";
 import { useNavigate } from "react-router-dom";
+import SelectAConversationSide from './../Extra/SelectAConverstionSide';
+import { GetUserData } from "../../RTK/Slices/userSlice";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 export default function Profile() {
   const theme = useTheme();
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(GetUserData());
+  },[]);
   return (
     <Stack direction="row" sx={{ width: "100%", height: "100vh" }}>
       {/* Settings Menu */}
@@ -39,6 +33,7 @@ export default function Profile() {
         p={3}
         sx={{
           width: "25%",
+          minWidth:"380px",
           maxWidth: "380px",
           height: "100vh",
           boxShadow: `0px 0px 6px ${
@@ -54,6 +49,7 @@ export default function Profile() {
             theme.palette.mode === "light"
               ? "#f8faff"
               : theme.palette.background,
+          overflowY: "hidden",
         }}
       >
         <Stack spacing={1} sx={{ height: "100%" }}>
@@ -84,27 +80,7 @@ export default function Profile() {
         </Stack>
       </Box>
       {/* right Panel */}
-      <Box sx={{ width: "100%", height: "100%" }}>
-        <Stack sx={{ height: "100%" , width:"100%" }}  alignItems={"end"}>
-          <Stack
-            alignItems={"center"}
-            justifyContent={"center"}
-            sx={{ height: "100%", width:"100%" }}
-          >
-            <NoChat />
-          </Stack>
-          <Box
-            sx={{
-              width: "99%",
-              height: "10px",
-              bgcolor: "#5b96f7",
-              borderTopLeftRadius: "12px",
-              borderBottomLeftRadius: "12px",
-              paddingLeft:"10px"
-            }}
-          />
-        </Stack>
-      </Box>
+      <SelectAConversationSide />
     </Stack>
   );
 }

@@ -1,11 +1,11 @@
 import { Box, IconButton, Stack, Typography } from "@mui/material";
-import { SimpleBarStyle } from "./Scrollbar";
+import { SimpleBarStyle } from "./../components/StyledComponents/Scrollbar";
 import { ArrowLeft } from "@phosphor-icons/react";
 import { useDispatch } from "react-redux";
 import { CONTACT, updateSidebarType } from "../RTK/Slices/appSlice";
 import { useTheme } from "@mui/material/styles";
 import { Chat_History } from "../data";
-import { ChatMessages } from "./ChatMessages";
+import { ChatMessages } from "./Chat/ChatMessages";
 
 export function StarredMessages() {
   const dispatch = useDispatch();
@@ -15,6 +15,7 @@ export function StarredMessages() {
       <Box
         sx={{
           width: "20%",
+          minWidth: "320px",
           maxWidth: "320px",
           height: "100vh",
           borderLeft: `2px solid ${

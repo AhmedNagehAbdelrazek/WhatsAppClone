@@ -3,30 +3,24 @@ import { useTheme } from "@mui/material/styles";
 import {
   Box,
   Button,
-
   Divider,
-
   Stack,
   Typography,
 } from "@mui/material";
 import {
   MagnifyingGlass,
-  PushPinSimple,
-  ChatDots,
-  Plus,
   Phone,
 } from "@phosphor-icons/react";
-import { Call_History, ChatList } from "../../data";
-import { SimpleBarStyle } from "../../components/Scrollbar";
+import { Call_History} from "../../data";
+import { SimpleBarStyle } from "../../components/StyledComponents/Scrollbar";
 import {
   Search,
   SearchIconWrapper,
   StyledInputBase,
 } from "../../components/StyledComponents/Search";
-import { ChatElement } from "../../components/ChatElement";
-import CreateGroup from "../../Sections/Main/CreateGroup";
 import { CallElement } from "../../components/CallElement";
 import StartNewConversation from "../../Sections/Main/StartNewConcersation";
+import SelectAConversationSide from "../Extra/SelectAConverstionSide";
 
 
 
@@ -44,13 +38,14 @@ export default function Call() {
   
 
   return (
-    <Stack sx={{width:"100%"}}>
+    <Stack sx={{width:"100%"}} direction="row">
         {/* Left Side */}
       <Box
         sx={{
           position: "relative",
           width: "30%",
-          maxWidth: "320px",
+          minWidth:"330px",
+          maxWidth:"330px",
           backgroundColor:
             theme.palette.mode === "light"
               ? "#eaeef9"
@@ -137,7 +132,7 @@ export default function Call() {
       
       {/* Right Side */}
       {/* //TODO => Reuse Conversation Components */}
-
+       <SelectAConversationSide/>
     </Stack>
   );
 }

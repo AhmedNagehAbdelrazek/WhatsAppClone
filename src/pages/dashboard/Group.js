@@ -16,14 +16,15 @@ import {
   Plus,
 } from "@phosphor-icons/react";
 import { ChatList } from "../../data";
-import { SimpleBarStyle } from "../../components/Scrollbar";
+import { SimpleBarStyle } from "../../components/StyledComponents/Scrollbar";
 import {
   Search,
   SearchIconWrapper,
   StyledInputBase,
 } from "../../components/StyledComponents/Search";
-import { ChatElement } from "../../components/ChatElement";
+import { ChatElement } from "../../components/Chat/ChatElement";
 import CreateGroup from "../../Sections/Main/CreateGroup";
+import SelectAConversationSide from "../Extra/SelectAConverstionSide";
 
 
 
@@ -41,13 +42,14 @@ export default function Group() {
   
 
   return (
-    <Stack sx={{width:"100%"}}>
+    <Stack sx={{width:"100%"}} direction="row">
         {/* Left Side */}
       <Box
         sx={{
           position: "relative",
           width: "30%",
-          maxWidth: "320px",
+          minWidth:"330px",
+          maxWidth:"330px",
           backgroundColor:
             theme.palette.mode === "light"
               ? "#eaeef9"
@@ -164,7 +166,7 @@ export default function Group() {
       
       {/* Right Side */}
       {/* //TODO => Reuse Conversation Components */}
-
+      <SelectAConversationSide/>
     </Stack>
   );
 }

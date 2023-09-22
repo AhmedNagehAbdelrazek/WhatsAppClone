@@ -1,10 +1,4 @@
-import {
-  Box,
-  Fab,
-  IconButton,
-  Stack,
-  Tooltip,
-} from "@mui/material";
+import { Box, Fab, IconButton, Stack, Tooltip } from "@mui/material";
 import { StyledInput } from "../../../components/StyledComponents/StyledInput";
 import {
   Camera,
@@ -35,7 +29,7 @@ function Footer() {
               sx={{
                 zIndex: "2",
                 position: "absolute",
-                left:"15px",
+                left: "15px",
                 top: -data.y,
                 transition: "top 500ms",
                 backgroundColor: data.color,
@@ -86,7 +80,10 @@ function Footer() {
                 onEmojiSelect={(emoji) => {}}
               />
             </Box>
-            <ChatInput setOpenPickup={setOpenPickup} setOpenActions={setOpenActions} />
+            <ChatInput
+              setOpenPickup={setOpenPickup}
+              setOpenActions={setOpenActions}
+            />
           </Stack>
           <Box
             sx={{
@@ -101,7 +98,14 @@ function Footer() {
               justifyContent={"center"}
               sx={{ width: "100%", height: "100%" }}
             >
-              <IconButton>
+              <IconButton
+                color="inherit"
+                sx={{
+                  "&.MuiIconButton-root:hover": {
+                    backgroundColor: "#f0ffff30",
+                  },
+                }}
+              >
                 <PaperPlaneTilt color="#fff" />
               </IconButton>
             </Stack>
@@ -114,8 +118,7 @@ function Footer() {
 
 export default Footer;
 
-function ChatInput({ setOpenPickup ,setOpenActions}) {
-  
+function ChatInput({ setOpenPickup, setOpenActions }) {
   return (
     <>
       <StyledInput

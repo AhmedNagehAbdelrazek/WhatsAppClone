@@ -1,12 +1,15 @@
-import { useState } from "react";
 import FormProvider from "../../components/hook-form/FormProvider";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import RHFTextField from "../../components/hook-form/RHFTextField";
-import { Alert, Button, Stack } from "@mui/material";
+import { Alert, Stack } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { ForgotPasswordUser } from "../../RTK/Slices/authSlice";
+import FormBtn from "../../components/FormBtn";
 
 export default function ResetPasswordForm() {
+  const dispatch = useDispatch();
   const ResetPasswordSchema = Yup.object().shape({
     email: Yup.string()
       .required("Email is Required")
@@ -24,21 +27,17 @@ export default function ResetPasswordForm() {
 
   const {
     reset,
-    clearErrors,
     handleSubmit,
     setError,
     formState: {
       errors,
-      isSubmitSuccessful,
-      isSubmitted,
-      isLoading,
-      isSubmitting,
     },
   } = methods;
 
-  const onSubmit = async () => {
+  const onSubmit = async (data) => {
     try {
       //server calling code
+      dispatch(ForgotPasswordUser(data));
     } catch (error) {
       console.log(error);
       reset();
@@ -62,25 +61,7 @@ export default function ResetPasswordForm() {
       </Stack>
 
       <Stack alignItems={"end"} sx={{ my: 2 }}>
-        <Button
-          onClick={() => {}}
-          color="inherit"
-          size="large"
-          type="submit"
-          variant="contained"
-          sx={{
-            bgcolor: "text.primary",
-            color: (theme) =>
-              theme.palette.mode === "light" ? "common.white" : "grey.800",
-            "&:hover": {
-              color: (theme) =>
-                theme.palette.mode === "light" ? "common.white" : "grey.800",
-              bgcolor: "text.primary",
-            },
-          }}
-        >
-          Send request
-        </Button>
+        <FormBtn value="Send request" fullWidth={false}/>
       </Stack>
     </FormProvider>
   );

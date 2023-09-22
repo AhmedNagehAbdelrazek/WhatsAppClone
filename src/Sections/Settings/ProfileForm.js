@@ -4,22 +4,34 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import RHFTextField from "../../components/hook-form/RHFTextField";
 import { Alert, Button, Stack } from "@mui/material";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { GetUserData, UpdateUserData } from "../../RTK/Slices/userSlice";
 
 export default function ProfileForm() {
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+    dispatch(GetUserData());
+  },[]);
+
   const loginSchema = Yup.object().shape({
     avatarUrl:Yup.string().nullable(true),
-    name: Yup.string().required("Name is Required"),
+    fname: Yup.string().required("First Name is Required"),
+    lname: Yup.string().required("Last Name is Required"),
     about: Yup.string().notRequired(),
   });
 
   const defaultValues = {
-    avatarUrl:"",
-    name: "Ahmed",
-    about: "The Best",
+    avatarUrl: user.avatar,
+    fname: user.firstName ,
+    lname: user.lastName,
+    about: user.about,
   };
 
   const methods = useForm({
+    mode: "onChange",
     resolver: yupResolver(loginSchema),
     defaultValues,
   });
@@ -27,37 +39,38 @@ export default function ProfileForm() {
   const {
     reset,
     handleSubmit,
-    watch,
-    control,
-    setValue,
+    // watch,
     setError,
     formState: { errors, isSubmitSuccessful },
   } = methods;
 
 
   useEffect(() => {
-    reset();
+    // reset();
 
   }, [isSubmitSuccessful]);
 
-  const values = watch();
+  // const values = watch();
 
-  const handleDrop = useCallback((acceptedFiles)=>{
-    const file = acceptedFiles[0];
+  // const handleDrop = useCallback((acceptedFiles)=>{
+  //   const file = acceptedFiles[0];
 
-    const newFile = Object.assign(file,{
-      preview:URL.createObjectURL(file)
-    })
+  //   const newFile = Object.assign(file,{
+  //     preview:URL.createObjectURL(file)
+  //   })
 
-    if(file){
-      setValue("avatarUrl",newFile,{shouldValidate:true});
-    }
+  //   if(file){
+  //     setValue("avatarUrl",newFile,{shouldValidate:true});
+  //   }
 
-  },[setValue])
+  // },[setValue])
+  
 
-  const onSubmit = async () => {
+  const onSubmit = async (data) => {
     try {
       //server calling code
+      dispatch(UpdateUserData({firstName:data.fname,lastName:data.lname,about:data.about,avatar:data.avatarUrl}));
+      console.log(data);
     } catch (error) {
       console.log(error);
       reset();
@@ -79,9 +92,14 @@ export default function ProfileForm() {
         )}
 
         <RHFTextField
-          name="name"
-          label="Name"
+          name="fname"
+          label="First Name"
           helperText={"This name is visible to your contact"}
+        />
+        <RHFTextField
+          name="lname"
+          label="Last Name"
+          // helperText={"This name is visible to your contact"}
         />
         <RHFTextField
           name="about"

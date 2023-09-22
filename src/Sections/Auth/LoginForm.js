@@ -7,16 +7,20 @@ import RHFTextField from "../../components/hook-form/RHFTextField";
 import { Link as RouterLink } from "react-router-dom"; 
 import {
   Alert,
-  Button,
   IconButton,
   InputAdornment,
   Link,
   Stack,
 } from "@mui/material";
 import { Eye, EyeSlash } from "@phosphor-icons/react";
+import { useDispatch } from "react-redux";
+import { LoginUser } from "../../RTK/Slices/authSlice";
+import FormBtn from "../../components/FormBtn";
 
 function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch();
+
 
   const loginSchema = Yup.object().shape({
     email: Yup.string()
@@ -37,21 +41,18 @@ function LoginForm() {
 
   const {
     reset,
-    clearErrors,
     handleSubmit,
     setError,
     formState: {
       errors,
-      isSubmitSuccessful,
-      isSubmitted,
-      isLoading,
-      isSubmitting,
     },
   } = methods;
 
-  const onSubmit = async () => {
+  const onSubmit = async (data) => {
     try {
       //server calling code
+      // console.log(data);
+      dispatch(LoginUser(data));
     } catch (error) {
       console.log(error);
       reset();
@@ -90,26 +91,7 @@ function LoginForm() {
           Forget Password?
         </Link>
       </Stack>
-      <Button
-        onClick={() => {}}
-        fullWidth
-        color="inherit"
-        size="large"
-        type="submit"
-        variant="contained"
-        sx={{
-          bgcolor: "text.primary",
-          color: (theme) =>
-            theme.palette.mode === "light" ? "common.white" : "grey.800",
-          "&:hover": {
-            color: (theme) =>
-              theme.palette.mode === "light" ? "common.white" : "grey.800",
-            bgcolor: "text.primary",
-          },
-        }}
-      >
-        Login
-      </Button>
+      <FormBtn value="login"/>
     </FormProvider>
   );
 }

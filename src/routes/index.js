@@ -26,6 +26,7 @@ export default function Router() {
         {path:"register" , element:<AppRegister />},
         {path:"reset-password" , element:<ResetPassword /> },
         {path:"new-password" , element:<NewPassword />},
+        { path: "send-otp", element: <SendOTP /> },
     ] },
     {
       path: "/",
@@ -61,3 +62,4 @@ const AppLogin = Loadable(lazy(() => import("../pages/Auth/Login")));
 const AppRegister = Loadable(lazy(() => import("../pages/Auth/Register")));
 const ResetPassword = Loadable(lazy(() => import("../pages/Auth/ResetPassword")));
 const NewPassword = Loadable(lazy(() => import("../pages/Auth/NewPassword")));
+const SendOTP = Loadable(lazy(() => import("../pages/Auth/SendOTP")));

@@ -1,9 +1,10 @@
 import { Link, Stack, Typography } from "@mui/material";
-import { Link as RouterLink } from "react-router-dom";
+import {Link as RouterLink } from "react-router-dom";
 import AuthSocial from "../../Sections/Auth/AuthSocial";
 import LoginForm from "../../Sections/Auth/LoginForm";
 
 function Login() {
+  
   return (
     <>
       <Stack spacing={2} sx={{ mt: 5, position: "relative" }}>

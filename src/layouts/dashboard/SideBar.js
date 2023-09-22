@@ -3,7 +3,6 @@ import {
   Divider,
   IconButton,
   Stack,
-  Avatar,
   Menu,
   MenuItem,
   Link,
@@ -14,16 +13,19 @@ import { Gear } from "@phosphor-icons/react";
 import React, { useState } from "react";
 import { faker } from "@faker-js/faker";
 import { useTheme } from "@mui/material/styles";
-import { IOSSwitch } from "../../components/IOSSwitch";
+import { IOSSwitch } from "../../components/StyledComponents/IOSSwitch";
 import useSettings from "../../hooks/useSettings";
-import { Link as RouterLink, useLocation, useParams } from "react-router-dom";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 import { GetPathValue } from "../../utils/Utilities";
 import { useEffect } from "react";
 import { AvatarStyled } from "../../components/StyledComponents/AvatarStyled";
+import { useDispatch } from "react-redux";
+import { LogOutUser } from "../../RTK/Slices/authSlice";
 
 export function SideBar() {
   const location = useLocation().pathname;
   const selectedIcon = GetPathValue(location);
+  const dispatch = useDispatch();
 
   const theme = useTheme();
   const { onToggleMode } = useSettings();
@@ -48,6 +50,7 @@ export function SideBar() {
       sx={{
         height: "100vh",
         width: "10%",
+        minWidth: "100px",
         maxWidth: "100px",
         overflowY: "auto",
         backgroundColor: theme.palette.background.paper,
@@ -166,10 +169,12 @@ export function SideBar() {
             }}
             checked={theme.palette.mode === "dark"}
           />
-          
-          <AvatarStyled id={`option-btn`}
+
+          <AvatarStyled
+            id={`option-btn`}
             onClick={handleClick}
-            src={faker.image.avatar()} />
+            src={faker.image.avatar()}
+          />
 
           <Menu
             id="basic-menu"
@@ -184,8 +189,16 @@ export function SideBar() {
           >
             <Stack spacing={1}>
               {Profile_Menu.map((title) => (
-                <MenuItem onClick={handleClose}>
-                  <Link underline={"none"} color="inherit" to={title.nav} key={title.title} component={RouterLink}>
+                <MenuItem key={title.title} onClick={handleClose}>
+                  <Link
+                    underline={"none"}
+                    color="inherit"
+                    // to={title.nav}
+                    
+                    
+                    component={RouterLink}
+                    {...(title.title === "Log out" ? {onClick:()=>dispatch(LogOutUser())} :{to:title.nav})}
+                  >
                     <Stack
                       sx={{ width: 100 }}
                       direction={"row"}
